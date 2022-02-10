@@ -5,8 +5,7 @@ enum PartOfSpeech {
 }
 
 /**
- * Represents a definition for a word.
- * A word may contain multiple definitions.
+ * Represents a definition for a word. A word may contain multiple definitions.
  */
 public class Definition implements Map.Entry<PartOfSpeech, String> {
 
@@ -31,5 +30,10 @@ public class Definition implements Map.Entry<PartOfSpeech, String> {
     @Override
     public String setValue(String value) {
         throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s] %s", partOfSpeech, definition);
     }
 }
