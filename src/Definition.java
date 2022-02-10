@@ -5,7 +5,10 @@ enum PartOfSpeech {
 }
 
 /**
- * Represents a definition for a word. A word may contain multiple definitions.
+ * Represents a definition entry for a word. A word may contain multiple definitions.
+ *
+ * @param partOfSpeech The part of speech that the definition applies to.
+ * @param definition   The definition.
  */
 public record Definition(PartOfSpeech partOfSpeech, String definition)
         implements Map.Entry<PartOfSpeech, String>, Comparable<Definition> {
