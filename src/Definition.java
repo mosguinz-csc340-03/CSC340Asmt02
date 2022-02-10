@@ -41,4 +41,12 @@ public record Definition(PartOfSpeech partOfSpeech, String definition)
         }
         return posDelta;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o.getClass() == this.getClass()) {
+            return compareTo((Definition) o) == 0;
+        }
+        return false;
+    }
 }
