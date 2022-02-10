@@ -7,15 +7,8 @@ enum PartOfSpeech {
 /**
  * Represents a definition for a word. A word may contain multiple definitions.
  */
-public class Definition implements Map.Entry<PartOfSpeech, String>, Comparable<Definition> {
-
-    private final PartOfSpeech partOfSpeech;
-    private final String definition;
-
-    public Definition(PartOfSpeech partOfSpeech, String definition) {
-        this.partOfSpeech = partOfSpeech;
-        this.definition = definition;
-    }
+public record Definition(PartOfSpeech partOfSpeech, String definition)
+        implements Map.Entry<PartOfSpeech, String>, Comparable<Definition> {
 
     @Override
     public PartOfSpeech getKey() {
