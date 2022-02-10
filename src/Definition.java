@@ -7,7 +7,7 @@ enum PartOfSpeech {
 /**
  * Represents a definition for a word. A word may contain multiple definitions.
  */
-public class Definition implements Map.Entry<PartOfSpeech, String> {
+public class Definition implements Map.Entry<PartOfSpeech, String>, Comparable<Definition> {
 
     private final PartOfSpeech partOfSpeech;
     private final String definition;
@@ -35,5 +35,14 @@ public class Definition implements Map.Entry<PartOfSpeech, String> {
     @Override
     public String toString() {
         return String.format("[%s] %s", partOfSpeech, definition);
+    }
+
+    @Override
+    public int compareTo(Definition o) {
+        int posDelta = this.partOfSpeech.compareTo(o.partOfSpeech);
+        if (posDelta == 0) {
+            return this.definition.compareTo(o.definition);
+        }
+        return posDelta;
     }
 }
