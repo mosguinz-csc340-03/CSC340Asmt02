@@ -35,7 +35,7 @@ public record Definition(PartOfSpeech partOfSpeech, String definition)
 
     @Override
     public int compareTo(Definition o) {
-        int posDelta = this.partOfSpeech.compareTo(o.partOfSpeech);
+        int posDelta = this.partOfSpeech.name().compareTo(o.partOfSpeech.name());
         if (posDelta == 0) {
             return this.definition.compareTo(o.definition);
         }
