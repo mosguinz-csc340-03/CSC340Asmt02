@@ -2,6 +2,9 @@ import java.util.HashMap;
 
 /**
  * A "database" containing all the definitions.
+ *
+ * @apiNote The use of enum to store definitions is required by the assignment, as specified
+ *         in Part (B) under "Data Source."
  */
 public enum DictDatabase {
 
