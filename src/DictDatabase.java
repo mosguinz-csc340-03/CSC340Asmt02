@@ -93,10 +93,18 @@ public enum DictDatabase {
         return entries;
     }
 
+    /**
+     * @return The term of this entry in lowercase.
+     * @apiNote The term is derived from the identifier of the enum declaration. Therefore,
+     *         it is guaranteed to be unique.
+     */
     public String getTerm() {
         return this.name().toLowerCase();
     }
 
+    /**
+     * @return The {@link Definition}s associated with this entry.
+     */
     public Definition[] getDefinitions() {
         return this.definitions;
     }
