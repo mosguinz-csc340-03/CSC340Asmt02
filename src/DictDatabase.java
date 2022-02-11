@@ -77,9 +77,11 @@ public enum DictDatabase {
             new Definition(PartOfSpeech.NOUN, "filler definition 60"),
             new Definition(PartOfSpeech.NOUN, "filler definition 61"));
 
+    private final String term;
     private final Definition[] definitions;
 
     DictDatabase(Definition... definitions) {
+        this.term = this.name().toLowerCase();
         this.definitions = definitions;
     }
 
@@ -102,7 +104,7 @@ public enum DictDatabase {
      *         it is guaranteed to be unique.
      */
     public String getTerm() {
-        return this.name().toLowerCase();
+        return this.term;
     }
 
     /**
