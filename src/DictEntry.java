@@ -2,11 +2,14 @@ import java.util.HashMap;
 
 /**
  * A "database" containing all the definitions.
+ * <p>
+ * A {@link DictEntry} is unique for each term. Each term may contain multiple {@link Definition}s,
+ * where those definitions need not be unique in a given entry.
  *
  * @apiNote The use of enum to store definitions is required by the assignment, as specified
  *         in Part (B) under "Data Source."
  */
-public enum DictDatabase {
+public enum DictEntry {
 
     ARROW(new Definition(PartOfSpeech.NOUN, "Here is one arrow: <IMG> -=>> </IMG>")),
 
@@ -80,7 +83,7 @@ public enum DictDatabase {
     private final String term;
     private final Definition[] definitions;
 
-    DictDatabase(Definition... definitions) {
+    DictEntry(Definition... definitions) {
         this.term = this.name().toLowerCase();
         this.definitions = definitions;
     }
@@ -92,7 +95,7 @@ public enum DictDatabase {
      */
     public static HashMap<String, Definition[]> loadAll() {
         HashMap<String, Definition[]> entries = new HashMap<>();
-        for (DictDatabase entry : DictDatabase.values()) {
+        for (DictEntry entry : DictEntry.values()) {
             entries.put(entry.getTerm(), entry.getDefinitions());
         }
         return entries;
