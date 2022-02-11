@@ -8,11 +8,24 @@ public class Dictionary {
         this.entries = loadEntries();
     }
 
+    /**
+     * Load all the definitions stored in the enum database.
+     *
+     * @return A {@link HashMap} containing the {@link Definition}s of each entry.
+     */
     private static HashMap<String, Definition[]> loadEntries() {
         HashMap<String, Definition[]> entries = new HashMap<>();
+        int entryCount = 0, defCount = 0;
+
         for (DictEntry entry : DictEntry.values()) {
-            entries.put(entry.getTerm(), entry.getDefinitions());
+            String term = entry.getTerm();
+            Definition[] definitions = entry.getDefinitions();
+            
+            entries.put(term, definitions);
+            entryCount++;
+            defCount += definitions.length;
         }
+
         return entries;
     }
 
