@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * A "database" containing all the definitions.
  */
@@ -76,6 +78,19 @@ public enum DictDatabase {
 
     DictDatabase(Definition... definitions) {
         this.definitions = definitions;
+    }
+
+    /**
+     * Load all the definitions stored in this enum database.
+     *
+     * @return A {@link HashMap} containing the {@link Definition}s of each entry.
+     */
+    public static HashMap<String, Definition[]> loadAll() {
+        HashMap<String, Definition[]> entries = new HashMap<>();
+        for (DictDatabase entry : DictDatabase.values()) {
+            entries.put(entry.getTerm(), entry.getDefinitions());
+        }
+        return entries;
     }
 
     public String getTerm() {
