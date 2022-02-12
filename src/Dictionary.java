@@ -1,11 +1,22 @@
 import java.util.HashMap;
+import java.util.Scanner;
+
+enum SearchOption {
+    DISTINCT, REVERSE
+}
 
 public class Dictionary {
 
+    private static final Scanner scanner = new Scanner(System.in);
     private final HashMap<String, Definition[]> entries;
+    private int queryCount = 0;
 
-    public Dictionary() {
+    private Dictionary() {
         this.entries = loadEntries();
+    }
+
+    public static void main(String[] args) {
+        Dictionary.startSession();
     }
 
     /**
@@ -34,6 +45,24 @@ public class Dictionary {
                 entryCount, defCount);
 
         return entries;
+    }
+
+    public static void startSession() {
+        Dictionary dict = new Dictionary();
+        String input;
+        do {
+            input = dict.promptInput();
+        } while (!input.equals("!q"));
+    }
+
+    /**
+     * Display prompt for user input.
+     *
+     * @return The input with all leading and trailing spaces trimmed.
+     */
+    private String promptInput() {
+        System.out.printf("Search [%d]: ", ++queryCount);
+        return scanner.nextLine().trim();
     }
 
 }
