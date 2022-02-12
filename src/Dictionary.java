@@ -20,11 +20,18 @@ public class Dictionary {
         for (DictEntry entry : DictEntry.values()) {
             String term = entry.getTerm();
             Definition[] definitions = entry.getDefinitions();
-            
+
             entries.put(term, definitions);
             entryCount++;
             defCount += definitions.length;
         }
+
+        System.out.printf("! Loading data...%n"
+                        + "! Loading completed...%n"
+                        + "===== DICTIONARY 340 JAVA =====%n"
+                        + "----- Keywords: %d%n"
+                        + "----- Definitions: %d%n",
+                entryCount, defCount);
 
         return entries;
     }
