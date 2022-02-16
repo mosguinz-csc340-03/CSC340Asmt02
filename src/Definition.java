@@ -1,7 +1,11 @@
 import java.util.Map;
 
 enum PartOfSpeech {
-    ADJECTIVE, ADVERB, CONJUNCTION, INTERJECTION, NOUN, PREPOSITION, PRONOUN, VERB
+    ADJECTIVE, ADVERB, CONJUNCTION, INTERJECTION, NOUN, PREPOSITION, PRONOUN, VERB;
+
+    static PartOfSpeech parse(String s) {
+        return PartOfSpeech.valueOf(s.toUpperCase());
+    }
 }
 
 /**

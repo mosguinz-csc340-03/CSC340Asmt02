@@ -6,7 +6,7 @@ enum QueryOption implements QueryParameter {
         @Override
         public QueryOption parse(String s) {
             try {
-                PartOfSpeech.valueOf(s.toUpperCase());
+                PartOfSpeech.parse(s);
                 return this;
             } catch (IllegalArgumentException e) {
                 return null;
