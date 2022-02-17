@@ -9,17 +9,9 @@ import java.util.stream.Stream;
 public class Dictionary {
 
     private final HashMap<String, Definition[]> entries;
+    private final int entryCount, definitionCount;
 
     public Dictionary() {
-        this.entries = loadEntries();
-    }
-
-    /**
-     * Load all the definitions stored in the enum database.
-     *
-     * @return A {@link HashMap} containing the {@link Definition}s of each entry.
-     */
-    private static HashMap<String, Definition[]> loadEntries() {
         HashMap<String, Definition[]> entries = new HashMap<>();
         int entryCount = 0, defCount = 0;
 
@@ -32,16 +24,11 @@ public class Dictionary {
             defCount += definitions.length;
         }
 
-        System.out.printf("! Loading data...%n"
-                        + "! Loading completed...%n"
-                        + "===== DICTIONARY 340 JAVA =====%n"
-                        + "----- Keywords: %d%n"
-                        + "----- Definitions: %d%n",
-                entryCount, defCount);
+        this.entries = entries;
+        this.entryCount = entryCount;
+        this.definitionCount = defCount;
 
-        return entries;
     }
-
 
     public Definition[] getEntries(String s) {
         return entries.get(s.toLowerCase());
