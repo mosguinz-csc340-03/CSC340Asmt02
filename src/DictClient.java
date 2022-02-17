@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class DictClient {
@@ -22,6 +23,30 @@ public class DictClient {
                 "PARAMETER HOW-TO,  please enter:",
                 "1. A search key -then 2. An optional part of speech -then",
                 "3. An optional 'distinct' -then 4. An optional 'reverse'"
+        );
+    }
+
+    /**
+     * Print search results. If there are no definitions to display, prints a "not found" message.
+     *
+     * @param term        The search term.
+     * @param definitions An array of {@link Definition}s from the query.
+     */
+    private static void printResults(String term, Definition[] definitions) {
+        if (definitions.length == 0) {
+            printToConsole("<NOT FOUND> To be considered for the next release. Thank you.");
+            printHelp();
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder(term.toLowerCase());
+        sb.setCharAt(0, Character.toUpperCase(term.charAt(0)));
+        final String formattedTerm = sb.toString();
+
+        printToConsole(
+                Arrays.stream(definitions).map(def -> String.format("%s [%s] : %s",
+                        formattedTerm, def.partOfSpeech(), def.definition()
+                )).toArray(String[]::new)
         );
     }
 
