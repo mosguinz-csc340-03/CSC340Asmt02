@@ -13,7 +13,7 @@ public class Dictionary {
 
     public Dictionary() {
         HashMap<String, Definition[]> entries = new HashMap<>();
-        int entryCount = 0, defCount = 0;
+        int entryCount = 0, definitionCount = 0;
 
         for (DictEntry entry : DictEntry.values()) {
             String term = entry.getTerm();
@@ -21,13 +21,31 @@ public class Dictionary {
 
             entries.put(term, definitions);
             entryCount++;
-            defCount += definitions.length;
+            definitionCount += definitions.length;
         }
 
         this.entries = entries;
         this.entryCount = entryCount;
-        this.definitionCount = defCount;
+        this.definitionCount = definitionCount;
 
+    }
+
+
+    /**
+     * @return The number of entries in this dictionary. An entry is a unique keyword stored in the
+     *         dictionary.
+     */
+    public int getEntryCount() {
+        return entryCount;
+    }
+
+
+    /**
+     * @return The number of definitions in this dictionary. An entry may contain multiple
+     *         definitions, where each definition need not be unique.
+     */
+    public int getDefinitionCount() {
+        return definitionCount;
     }
 
     public Definition[] getEntries(String s) {
