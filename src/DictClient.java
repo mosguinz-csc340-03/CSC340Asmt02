@@ -10,11 +10,11 @@ public class DictClient {
     }
 
     private static void printToConsole(String... messages) {
-        System.out.println("|".indent(4));
+        System.out.print("|".indent(4));
         for (String message : messages) {
-            System.out.println(message.indent(4));
+            System.out.print(message.indent(4));
         }
-        System.out.println("|".indent(4));
+        System.out.print("|".indent(4));
     }
 
     private static void printHelp() {
