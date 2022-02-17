@@ -6,6 +6,11 @@ enum PartOfSpeech {
     static PartOfSpeech parse(String s) {
         return PartOfSpeech.valueOf(s.toUpperCase());
     }
+
+    @Override
+    public String toString() {
+        return super.toString().toLowerCase();
+    }
 }
 
 /**
