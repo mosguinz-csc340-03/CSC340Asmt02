@@ -27,10 +27,8 @@ public class Dictionary {
         this.entries = entries;
         this.entryCount = entryCount;
         this.definitionCount = definitionCount;
-
     }
-
-
+    
     /**
      * @return The number of entries in this dictionary. An entry is a unique keyword stored in the
      *         dictionary.
@@ -38,7 +36,6 @@ public class Dictionary {
     public int getEntryCount() {
         return entryCount;
     }
-
 
     /**
      * @return The number of definitions in this dictionary. An entry may contain multiple
@@ -48,7 +45,7 @@ public class Dictionary {
         return definitionCount;
     }
 
-    public Definition[] getEntries(String s) {
+    private Definition[] lookup(String s) {
         return entries.get(s.toLowerCase());
     }
 
@@ -67,7 +64,7 @@ public class Dictionary {
             return null;
         }
 
-        Definition[] definitions = getEntries(args[0]);
+        Definition[] definitions = lookup(args[0]);
 
         if (definitions.length == 0) {
             // no entry
