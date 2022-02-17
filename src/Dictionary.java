@@ -4,25 +4,14 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.Scanner;
 import java.util.stream.Stream;
-
-abstract class QueryParam {
-
-}
 
 public class Dictionary {
 
-    private static final Scanner scanner = new Scanner(System.in);
     private final HashMap<String, Definition[]> entries;
-    private int queryCount = 0;
 
-    private Dictionary() {
+    public Dictionary() {
         this.entries = loadEntries();
-    }
-
-    public static void main(String[] args) {
-        Dictionary.startSession();
     }
 
     /**
@@ -53,19 +42,12 @@ public class Dictionary {
         return entries;
     }
 
-    public static void startSession() {
-        Dictionary dict = new Dictionary();
-        String input;
-        do {
-            input = dict.promptInput();
-        } while (!input.equals("!q"));
-    }
 
-    private Definition[] getEntries(String s) {
+    public Definition[] getEntries(String s) {
         return entries.get(s.toLowerCase());
     }
 
-    private DictQuery queryDict(String s) {
+    public Definition[] queryDict(String s) {
         final String[] args = s.split("\\s");
         final Queue<QueryOption> paramsToCheck = new LinkedList<>(List.of(QueryOption.values()));
 
@@ -117,16 +99,6 @@ public class Dictionary {
 
         }
         return null;
-    }
-
-    /**
-     * Display prompt for user input.
-     *
-     * @return The input with all leading and trailing spaces trimmed.
-     */
-    private String promptInput() {
-        System.out.printf("Search [%d]: ", ++queryCount);
-        return scanner.nextLine().trim();
     }
 
 }
