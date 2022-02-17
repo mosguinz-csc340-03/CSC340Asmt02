@@ -5,6 +5,10 @@ public class DictClient {
     private static final Scanner scanner = new Scanner(System.in);
     private int queryCount = 0;
 
+    public static void main(String[] args) {
+        new DictClient().startSession();
+    }
+
     private static void printToConsole(String... messages) {
         System.out.println("|".indent(4));
         for (String message : messages) {
@@ -14,7 +18,15 @@ public class DictClient {
     }
 
     public void startSession() {
+        System.out.println("! Loading data...");
         Dictionary dict = new Dictionary();
+        System.out.printf("! Loading completed...%n%n"
+                        + "===== DICTIONARY 340 JAVA =====%n"
+                        + "----- Keywords: %d%n"
+                        + "----- Definitions: %d%n%n",
+                dict.getEntryCount(),
+                dict.getDefinitionCount());
+
         String input;
         do {
             input = promptInput();
