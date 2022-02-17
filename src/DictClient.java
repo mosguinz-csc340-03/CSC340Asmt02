@@ -17,6 +17,14 @@ public class DictClient {
         System.out.println("|".indent(4));
     }
 
+    private static void printHelp() {
+        printToConsole(
+                "PARAMETER HOW-TO,  please enter:",
+                "1. A search key -then 2. An optional part of speech -then",
+                "3. An optional 'distinct' -then 4. An optional 'reverse'"
+        );
+    }
+
     public void startSession() {
         System.out.println("! Loading data...");
         Dictionary dict = new Dictionary();
