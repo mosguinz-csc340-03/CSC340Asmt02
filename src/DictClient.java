@@ -1,5 +1,8 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Queue;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class DictClient {
 
@@ -18,7 +21,7 @@ public class DictClient {
         System.out.print("|".indent(4));
     }
 
-    private static void printHelp() {
+    public static void printHelp() {
         printToConsole(
                 "PARAMETER HOW-TO,  please enter:",
                 "1. A search key -then 2. An optional part of speech -then",
@@ -50,6 +53,34 @@ public class DictClient {
         );
     }
 
+    public static void printParsingError(int argIndex, String arg,
+            Queue<QueryOption> queryOptions) {
+
+        String argOrdinal = switch (argIndex) {
+            case 0 -> "1st";
+            case 1 -> "2nd";
+            case 2 -> "3rd";
+            default -> String.format("%dth", argIndex + 1);
+        };
+
+        Stream<String> msgStream = queryOptions.stream().map(option ->
+                String.format("<The entered %s parameter %s is NOT %s.>", argOrdinal, arg, option)
+        );
+        String argHint = String.format(
+                "<The %s parameter should be %s.>",
+                argOrdinal,
+                String.join(" or ", queryOptions.stream()
+                        .map(QueryOption::toString)
+                        .toArray(String[]::new))
+        );
+
+        ArrayList<String> messages = new ArrayList<>(msgStream.toList());
+        messages.add(argHint);
+
+        printToConsole(messages.toArray(String[]::new));
+    }
+
+
     public void startSession() {
         System.out.println("! Loading data...");
         Dictionary dict = new Dictionary();
@@ -63,6 +94,9 @@ public class DictClient {
         String input;
         do {
             input = promptInput();
+            Definition[] res = dict.queryDict(input);
+
+
         } while (!input.equals("!q"));
     }
 
