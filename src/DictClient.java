@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Queue;
+import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
@@ -53,8 +53,18 @@ public class DictClient {
         );
     }
 
-    public static void printParsingError(int argIndex, String arg,
-            Queue<QueryOption> queryOptions) {
+
+    /**
+     * Print a message describing why the provided {@code arg} failed to parse.
+     *
+     * @param argIndex The index of the argument that failed to parse, where the zeroth index is the
+     *                 search term.
+     * @param arg      The argument itself.
+     */
+    public static void printParsingError(int argIndex, String arg) {
+
+        List<QueryOption> queryOptions = List.of(QueryOption.values())
+                .subList(argIndex - 1, QueryOption.values().length);
 
         String argOrdinal = switch (argIndex) {
             case 0 -> "1st";
