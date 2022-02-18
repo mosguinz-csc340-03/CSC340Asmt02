@@ -8,6 +8,8 @@ import java.util.stream.Stream;
 
 public class Dictionary {
 
+    private static final Definition[] NO_DEFINITIONS = {};
+
     private final HashMap<String, Definition[]> entries;
     private final int entryCount, definitionCount;
 
@@ -28,7 +30,7 @@ public class Dictionary {
         this.entryCount = entryCount;
         this.definitionCount = definitionCount;
     }
-    
+
     /**
      * @return The number of entries in this dictionary. An entry is a unique keyword stored in the
      *         dictionary.
@@ -49,43 +51,31 @@ public class Dictionary {
         return entries.get(s.toLowerCase());
     }
 
-    public Definition[] queryDict(String s) {
-        final String[] args = s.split("\\s");
-        final Queue<QueryOption> paramsToCheck = new LinkedList<>(List.of(QueryOption.values()));
+    public Definition[] queryDict(String[] args) {
+        final String searchTerm = args[0];
+        Definition[] definitions = lookup(searchTerm);
 
-        // CSO 25, abandon query
-        if (args.length > 4) {
-            // invalid
-            return null;
+        if (definitions == null) {
+            return NO_DEFINITIONS;
         }
 
-        if (args[0].equals("!help")) {
-            // print help message
-            return null;
-        }
-
-        Definition[] definitions = lookup(args[0]);
-
-        if (definitions.length == 0) {
-            // no entry
-            return null;
-        }
-
+        Queue<QueryOption> paramsToCheck = new LinkedList<>(List.of(QueryOption.values()));
         Stream<Definition> stream = Arrays.stream(definitions).sorted();
 
         for (int i = 1; i < args.length; i++) {
             String arg = args[i];
             boolean parsingFailed = true;
 
-            for (QueryOption queryOption : paramsToCheck) {
-                queryOption = queryOption.parse(arg);
+            while (paramsToCheck.size() > 0) {
 
-                if (queryOption == null) {
+                QueryOption thisParam = paramsToCheck.poll().parse(arg);
+
+                if (thisParam == null) {
                     continue;
                 }
 
                 parsingFailed = false;
-                stream = switch (queryOption) {
+                stream = switch (thisParam) {
                     case PART_OF_SPEECH -> {
                         PartOfSpeech pos = PartOfSpeech.parse(arg);
                         yield stream.filter(x -> x.partOfSpeech() == pos);
@@ -93,14 +83,16 @@ public class Dictionary {
                     case DISTINCT -> stream.distinct();
                     case REVERSE -> stream.sorted(Collections.reverseOrder());
                 };
+                break;
+
             }
 
             if (parsingFailed) {
-                // print parsing error message
+                DictClient.printParsingError(i, arg);
             }
-
         }
-        return null;
+
+        return stream.toArray(Definition[]::new);
     }
 
 }
