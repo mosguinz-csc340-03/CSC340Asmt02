@@ -117,6 +117,11 @@ public class DictClient {
                 return;
             }
 
+            if (input.isEmpty() || input.isBlank()) {
+                printHelp();
+                continue;
+            }
+
             final String[] args = input.split("\\s");
             final String searchTerm = args[0];
 
