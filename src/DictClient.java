@@ -74,17 +74,24 @@ public class DictClient {
         };
 
         Stream<String> msgStream = queryOptions.stream().map(option ->
-                String.format("<The entered %s parameter %s is NOT %s.>", argOrdinal, arg, option)
+                String.format(
+                        "<The entered %s parameter '%s' is NOT %s.>",
+                        argOrdinal, arg, option
+                )
+        );
+        String argDisregard = String.format(
+                "<The entered %s parameter '%s' was disregarded.>",
+                argOrdinal, arg
         );
         String argHint = String.format(
                 "<The %s parameter should be %s.>",
-                argOrdinal,
-                String.join(" or ", queryOptions.stream()
+                argOrdinal, String.join(" or ", queryOptions.stream()
                         .map(QueryOption::toString)
                         .toArray(String[]::new))
         );
 
         ArrayList<String> messages = new ArrayList<>(msgStream.toList());
+        messages.add(argDisregard);
         messages.add(argHint);
 
         printToConsole(messages.toArray(String[]::new));
