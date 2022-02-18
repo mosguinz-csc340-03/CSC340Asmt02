@@ -122,7 +122,7 @@ public class DictClient {
                 continue;
             }
 
-            final String[] args = input.split("\\s");
+            final String[] args = input.split("\\s+");
             final String searchTerm = args[0];
 
             // CSO 25 and 28
