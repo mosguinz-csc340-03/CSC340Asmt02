@@ -101,13 +101,28 @@ public class DictClient {
                 dict.getEntryCount(),
                 dict.getDefinitionCount());
 
-        String input;
-        do {
-            input = promptInput();
-            Definition[] res = dict.queryDict(input);
+        while (true) {
 
+            final String input = promptInput();
 
-        } while (!input.equals("!q"));
+            if (input.equalsIgnoreCase("!q")) {
+                System.out.println("\n-----THANK YOU-----");
+                return;
+            }
+
+            final String[] args = input.split("\\s");
+            final String searchTerm = args[0];
+
+            // CSO 25 and 28
+            if (args.length > 4 || searchTerm.equals("!help")) {
+                printHelp();
+                continue;
+            }
+
+            Definition[] res = dict.queryDict(args);
+            printResults(searchTerm, res);
+
+        }
     }
 
     /**
