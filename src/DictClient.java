@@ -60,6 +60,9 @@ public class DictClient {
      * @param argIndex The index of the argument that failed to parse, where the zeroth index is the
      *                 search term.
      * @param arg      The argument itself.
+     * @apiNote The method does not perform any parsing or validation of the provided {@code
+     *         arg}. Instead, it infers the missing arguments from the provided {@code argIndex} and
+     *         the fixed ordering of the parameters (provided by {@link QueryOption#values()}).
      */
     public static void printParsingError(int argIndex, String arg) {
 
@@ -98,6 +101,9 @@ public class DictClient {
     }
 
 
+    /**
+     * Load all dictionary entries and begin the session.
+     */
     public void startSession() {
         System.out.println("! Loading data...");
         Dictionary dict = new Dictionary();
@@ -117,6 +123,7 @@ public class DictClient {
                 return;
             }
 
+            // CSO 2
             if (input.isEmpty() || input.isBlank()) {
                 printHelp();
                 continue;
@@ -125,7 +132,7 @@ public class DictClient {
             final String[] args = input.split("\\s+");
             final String searchTerm = args[0];
 
-            // CSO 25 and 28
+            // CSO 1, 25, and 28
             if (args.length > 4 || searchTerm.equals("!help")) {
                 printHelp();
                 continue;

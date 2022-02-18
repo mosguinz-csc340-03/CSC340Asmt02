@@ -51,6 +51,13 @@ public class Dictionary {
         return entries.get(s.toLowerCase());
     }
 
+    /**
+     * Query the dictionary with the provided arguments.
+     *
+     * @param args The arguments for the query, where the first item (zeroth index) is the search
+     *             term.
+     * @return The query result. Returns an empty array if no matches are found.
+     */
     public Definition[] queryDict(String[] args) {
         final String searchTerm = args[0];
         Definition[] definitions = lookup(searchTerm);
